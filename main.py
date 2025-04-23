@@ -3,6 +3,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from circleshape import CircleShape
 
 def main():
     pygame.init()
@@ -22,13 +23,16 @@ def main():
 
     player = Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
     asteroid_field = AsteroidField()
-    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         screen.fill("black")
         updatable.update(dt)
+        print(type(player.position))  # Should print <class 'pygame.math.Vector2'>
+        for asteroid in asteroids:
+            if asteroid.collision_check(player):
+                raise SystemExit("Game Over!")
         for d in drawable:
             d.draw(screen)
         pygame.display.flip()
