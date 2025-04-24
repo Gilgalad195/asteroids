@@ -4,6 +4,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from circleshape import CircleShape
+from shot import Shot
 
 def main():
     pygame.init()
@@ -20,6 +21,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
+    Shot.containers = (updatable, drawable)
 
     player = Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
     asteroid_field = AsteroidField()
@@ -29,7 +31,6 @@ def main():
                 return
         screen.fill("black")
         updatable.update(dt)
-        print(type(player.position))  # Should print <class 'pygame.math.Vector2'>
         for asteroid in asteroids:
             if asteroid.collision_check(player):
                 raise SystemExit("Game Over!")
